@@ -33,15 +33,43 @@
                 <input asp-for="Book.PublishingDate" class="form-control" />
                 <span asp-validation-for="Book.PublishingDate" class="textdanger"></span>
             </div>
+            <div class="form-group">
             <label asp-for="Book.PublisherId" class="control-label">Publisher Name</label>
             <select asp-for="Book.PublisherId" class="form-control" asp-items="ViewBag.PublisherId">
-
             </select>
+
             <span asp-validation-for="Book.PublisherId" class="text-danger"></span>
-            <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-primary" />
+
             </div>
-        </form>
+            <div class="form-group">
+                <div class="table">
+                    <table>
+                        <tr>
+                            @{
+                                int cnt = 0;
+                                foreach (var cat in Model.AssignedCategoryDataList)
+                                {
+                                    if (cnt++ % 3 == 0)
+                                    {
+                                    @:</tr><tr>
+                                    }
+                                    @:<td>
+                                        <input type="checkbox"
+                                               name="selectedCourses"
+                                               value="@cat.CategoryID"
+                                               @(Html.Raw(cat.Assigned ? "checked=\"checked\"" : "")) />
+                                        @cat.CategoryID @: @cat.Name
+                                    @:</td>
+                                }
+                            @:</tr>
+                            }
+                        </table>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <input type="submit" value="Create" class="btn btn-primary" />
+                </div>
+            </form>
     </div>
 </div>
 
